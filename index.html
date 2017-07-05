@@ -1,0 +1,42 @@
+<html>
+
+  <head>
+    <script type="text/javascript" src="http://coffeescript.org/v1/browser-compiler/coffee-script.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+    <script type="text/coffeescript">
+      window.konvertu = ->
+        $("textarea").text anstataŭi $("textarea").text()
+
+      window.anstataŭi = (teksto) ->
+        teksto = teksto.replace /se/gi, "if"
+        teksto = teksto.replace /alia/gi, "else"
+        teksto = teksto.replace /alarmu/gi, "alert"
+        return teksto
+
+      window.ekzekutu = ->
+        eval CoffeeScript.compile $("textarea").val()
+    </script>
+  </head>
+
+  <body>
+    <h1>Kafoskribo</h1>
+
+    <textarea cols="100" rows="50">
+      se 4 > 8
+        alarmu("Jes")
+      alia
+        alarmu("Ne")
+    </textarea>
+
+    <p>
+      <button onclick="konvertu();">
+        Konverti al valida coffeescript
+      </button>
+      <button onclick="ekzekutu();">
+        Ekzekuti ĝin
+      </button>
+    </p>
+  </body>
+
+</html>
