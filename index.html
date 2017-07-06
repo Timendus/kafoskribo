@@ -2,7 +2,7 @@
 
   <head>
     <script type="text/javascript" src="coffee-script.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
 
     <script type="text/coffeescript">
       $ ->
@@ -11,30 +11,105 @@
 
         window.anstataŭi = (teksto) ->
           mapado =
-            se: "if"
-            alia: "else"
-            alarmu: "alert"
+            "krom se":    "unless"
+            "se":         "if"
+            "tiam":       "then"
+            "alia":       "else"
+            "por":        "for"
+            "en":         "in"
+            "de":         "of"
+            "faru":       "do"
+            "dum":        "while"
+            "ĝis":        "until"
+            "redonu":     "return"
+            "kaj":        "and"
+            "aŭ":         "or"
+            "ne":         "not"
+            "ne estas":   "isnt"
+            "estas":      "is"
+            "alarmu":     "alert"
+            "provu":      "try"
+            "kaptaĵu":    "catch"
+            "fine":       "finally"
+            "nedefinita": "undefined"
+            "nenio":      "null"
+            "vera":       "true"
+            "falsa":      "false"
+            "ĉi":         "this"
+            "klaso":      "class"
+            "etendas":    "extends"
+            "konstruilo": "constructor"
+            "supero":     "super"
+            "nova":       "new"
+            "ŝaltu":      "switch"
+            "kiam":       "when"
 
           for esperanto, coffeescript of mapado
-            teksto = teksto.replace(new RegExp(esperanto, "gi"), coffeescript)
+            teksto = teksto.replace(new RegExp("(^|\\s)#{esperanto}(\\s|$|:)", "gi"), "$1#{coffeescript}$2")
 
+          console.log teksto
           return teksto
     </script>
+
+    <style>
+      html, body {
+        text-align: center;
+        margin: 0px auto;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+
+      textarea {
+        text-align: left;
+        font-family: monospace;
+        font-size: 1em;
+        padding: 1em;
+      }
+
+      button {
+        font-family: Tahoma, Arial, sans-serif;
+        font-size: 2em;
+        background-color: blue;
+        color: white;
+        border: 0px;
+        padding: 0.2em 0.3em;
+      }
+    </style>
   </head>
 
   <body>
     <h1>Kafoskribo</h1>
 
+    <p>Vi povas skribi en esperantan dialekton de <a href="http://www.coffeescript.org">Coffeescript</a> sur ĉi tiu paĝo.</p>
+
     <textarea cols="100" rows="50">
-se 4 > 8
-  alarmu "Jes"
-alia
-  alarmu "Ne"
-    </textarea>
+klaso Besto
+  konstruilo: (@namo) ->
+
+  movu: (metroj) ->
+    teksto = "#{@namo} movis #{metroj}m."
+    teksto += " Ĝi iras tre rapida!" se metroj > 10
+    teksto += " Ĝi necesas tempo..." krom se metroj > 5
+    alarmu teksto
+
+klaso Serpento etendas Besto
+  movu: ->
+    alarmu "Serpentumantas..."
+    supero 5
+
+klaso Ĉevalo etendas Besto
+  movu: ->
+    alarmu "Galopantas..."
+    supero 45
+
+samo = nova Serpento "Samo la Serpento"
+choco = nova Ĉevalo "Choco la Ĉevalo"
+
+samo.movu()
+choco.movu()</textarea>
 
     <p>
       <button onclick="ekzekutu();">
-        Ekzekuti ĝin
+        Ekzekutu ĝin!
       </button>
     </p>
   </body>
